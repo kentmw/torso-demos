@@ -1,0 +1,24 @@
+.child-view {
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  width: 90vw;
+  height: 85vh;
+  margin: auto;
+  color: #eee;
+  font-size: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.red {
+  background-color: #B13535;
+}
+
+.blue {
+  background-color: #2C2CBF;
+}
