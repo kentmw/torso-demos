@@ -1,4 +1,5 @@
 var $ = require('jquery');
+require('./handlebar-helpers')(require('hbsfy/runtime'));
 
 // Expose some globals
 window.$ = $;
