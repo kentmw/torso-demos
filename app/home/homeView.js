@@ -12,35 +12,55 @@ module.exports = new (Torso.View.extend({
   },
 
   initialize: function() {
-    this.redChild = new ChildView({color: 'red'});
-    this.blueChild = new ChildView({color: 'blue'});
-    this.myChildViewMap = {
-      red: this.redChild,
-      blue: this.blueChild
-    };
-    this.set('current', 'red');
+    this.myChildViews= [
+      new ChildView({color: 'red'}),
+      new ChildView({color: 'blue'}),
+      new ChildView({color: 'green'}),
+      new ChildView({color: 'purple'}),
+      new ChildView({color: 'orange'})
+    ];
+    this.set('current', 0);
     this.listenTo(this.viewState, 'change:current', this.render);
+    this.listenTo()
   },
 
   render: function() {
     Torso.View.prototype.render.call(this);
-    var newChildView = this.myChildViewMap[this.get('current')];
-    var previousChildView = this.myChildViewMap[this.get('previous')];
-    if (!previousChildView) {
+    var newChildView = this.myChildViews[this.get('current')];
+    if (this.get('previous') == undefined) {
       this.injectView('current', newChildView);
     } else {
-      this.transitionView('current', newChildView, previousChildView);
+      var previousChildView = this.myChildViews[this.get('previous')];
+      this.transitionPromise = this.transitionView('current', newChildView, previousChildView, {
+        transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards'
+      });
     }
   },
 
+  prepare: function() {
+    var context = Torso.View.prototype.prepare.call(this);
+    context.maxIndexOfChildViews = _.size(this.myChildViews) - 1;
+    return context;
+  },
+
   next: function() {
-    this.set('previous', this.get('current'));
-    this.set('current', 'blue');
+    this.move(true);
   },
 
   back: function() {
-    this.set('previous', this.get('current'));
-    this.set('current', 'red');
+    this.move(false);
+  },
+
+  move: function(forward) {
+    var view = this;
+    if (this.transitionPromise && this.transitionPromise.state() != 'resolved') {
+      this.transitionPromise.done(function() {
+        view.move(forward);
+      })
+    } else {
+      this.set('previous', this.get('current'));
+      this.set('current', this.get('current') + (forward ? 1 : -1));
+    }
   }
 
 

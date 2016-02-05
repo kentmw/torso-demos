@@ -1,12 +1,22 @@
 .control {
-  margin: auto;
   margin-top: 10px;
-  text-align: center;
   position: absolute;
-  bottom: 15px;
+  top: 95vh;
+  left: 45vw;
+  button {
+    position: absolute;
+  }
 }
 
 .home {
   width: 100%;
   height: 100%;
+}
+
+.back {
+  left: 0vw;
+}
+
+.next {
+  left: 5vw;
 }

@@ -1,8 +1,9 @@
 <div inject="current"></div>
 <div class="control">
-  {{#ifCond view.current '==' 'red'}}
-  <button class="next">Next</button>
-  {{else}}
+  {{#ifCond view.current '!==' 0}}
   <button class="back">Back</button>
+  {{/ifCond}}
+  {{#ifCond view.current '!==' maxIndexOfChildViews}}
+  <button class="next">Next</button>
   {{/ifCond}}
 </div>

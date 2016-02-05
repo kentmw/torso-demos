@@ -1,3 +1,5 @@
+$transition-speed: 0.5s;
+
 .child-view {
   &:before {
     content: '';
@@ -18,14 +20,24 @@
   vertical-align: middle;
 }
 
-.transition-out {
-  animation-duration: 1s;
-  animation-name: leaveFromLeft;
+.leave-left {
+  animation-duration: $transition-speed;
+  animation-name: leaveLeft;
 }
 
-.transition-in {
-  animation-duration: 1s;
+.leave-right {
+  animation-duration: $transition-speed;
+  animation-name: leaveRight;
+}
+
+.in-from-right {
+  animation-duration: $transition-speed;
   animation-name: comeInFromRight;
+}
+
+.in-from-left {
+  animation-duration: $transition-speed;
+  animation-name: comeInFromLeft;
 }
 
 .red {
@@ -36,20 +48,50 @@
   background-color: #2C2CBF;
 }
 
+.green {
+  background-color: #378237;
+}
+
+.purple {
+  background-color: #791579;
+}
+
+.orange {
+  background-color: #AD7B20;
+}
+
 @keyframes comeInFromRight {
   0% {
-    transform: translate(150%);
+    transform: translate(110%);
   }
   100% {
     transform: translate(0%);
   }
 }
 
-@keyframes leaveFromLeft {
+@keyframes comeInFromLeft {
+  0% {
+    transform: translate(-110%);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes leaveLeft {
   0% {
     transform: translate(0%);
   }
   100% {
-    transform: translate(-150%);
+    transform: translate(-110%);
+  }
+}
+
+@keyframes leaveRight {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(110%);
   }
 }

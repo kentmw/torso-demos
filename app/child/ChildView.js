@@ -1,5 +1,6 @@
 var Torso = require('torso');
 var _ = require('underscore');
+var $ = require('jquery');
 var counter = 0;
 
 module.exports = Torso.View.extend({
@@ -23,23 +24,24 @@ module.exports = Torso.View.extend({
     this.$el.attr('class', _.result(this, 'className'));
   },
 
-  transitionOut: function(detach) {
+  transitionOut: function(detach, options) {
     var view = this;
-    this.set('transitionClass', 'transition-out');
+    this.set('transitionClass', options.transitionType == 'forward' ? 'leave-left' : 'leave-right');
     setTimeout(function() {
       detach();
       view.set('transitionClass', '');
-    }, 1000);
+    }, 500);
   },
 
-  transitionIn: function(attach) {
+  transitionIn: function(attach, options) {
     var view = this;
-    this.set('transitionClass', 'transition-in');
+    var deferred = $.Deferred();
+    this.set('transitionClass', options.transitionType == 'forward' ? 'in-from-right' : 'in-from-left');
     attach();
-    _.defer(function() {
-      setTimeout(function() {
-        view.set('transitionClass', '');
-      }, 1000);
-    });
+    setTimeout(function() {
+      view.set('transitionClass', '');
+      deferred.resolve();
+    }, 500);
+    return deferred.promise();
   },
 });
