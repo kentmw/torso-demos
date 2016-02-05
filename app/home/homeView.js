@@ -53,13 +53,14 @@ module.exports = new (Torso.View.extend({
 
   move: function(forward) {
     var view = this;
+    var current = this.get('current');
     if (this.transitionPromise && this.transitionPromise.state() != 'resolved') {
       this.transitionPromise.done(function() {
         view.move(forward);
       })
-    } else {
-      this.set('previous', this.get('current'));
-      this.set('current', this.get('current') + (forward ? 1 : -1));
+    } else if ((forward && current < (_.size(this.myChildViews) - 1)) || (!forward && current > 0)) {
+      this.set('previous', current);
+      this.set('current', current + (forward ? 1 : -1));
     }
   }
 
