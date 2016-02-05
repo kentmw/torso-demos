@@ -1,4 +1,6 @@
 $transition-speed: 0.5s;
+$transition-right-distance: 100%; // change to greater than 100 if you want space between the pages
+$transition-left-distance: -100%;
 
 .child-view {
   &:before {
@@ -62,7 +64,7 @@ $transition-speed: 0.5s;
 
 @keyframes comeInFromRight {
   0% {
-    transform: translate(110%);
+    transform: translate($transition-right-distance);
   }
   100% {
     transform: translate(0%);
@@ -71,7 +73,7 @@ $transition-speed: 0.5s;
 
 @keyframes comeInFromLeft {
   0% {
-    transform: translate(-110%);
+    transform: translate($transition-left-distance);
   }
   100% {
     transform: translate(0%);
@@ -83,7 +85,7 @@ $transition-speed: 0.5s;
     transform: translate(0%);
   }
   100% {
-    transform: translate(-110%);
+    transform: translate($transition-left-distance);
   }
 }
 
@@ -92,6 +94,6 @@ $transition-speed: 0.5s;
     transform: translate(0%);
   }
   100% {
-    transform: translate(110%);
+    transform: translate($transition-right-distance);
   }
 }
