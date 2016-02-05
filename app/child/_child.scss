@@ -6,7 +6,10 @@
     vertical-align: middle;
     margin-right: -0.25em;
   }
-  width: 90vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 85vh;
   margin: auto;
   color: #eee;
@@ -15,10 +18,38 @@
   vertical-align: middle;
 }
 
+.transition-out {
+  animation-duration: 1s;
+  animation-name: leaveFromLeft;
+}
+
+.transition-in {
+  animation-duration: 1s;
+  animation-name: comeInFromRight;
+}
+
 .red {
   background-color: #B13535;
 }
 
 .blue {
   background-color: #2C2CBF;
+}
+
+@keyframes comeInFromRight {
+  0% {
+    transform: translate(150%);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes leaveFromLeft {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(-150%);
+  }
 }

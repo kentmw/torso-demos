@@ -119,6 +119,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.app + '/**/*.scss', buildStyles);
     gulp.watch([
       paths.app + '/**/*.*',
+      paths.app + '/../node_modules/backbone-torso/modules/torso.js',
       '!' + paths.app + '/**/*.+(hbs|js|scss)',
     ], copyResources);
   });

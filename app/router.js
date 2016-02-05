@@ -22,7 +22,11 @@ module.exports = new (Torso.Router.extend({
    * Initialize the medicine widgets and page layout
    */
   index: function() {
-    this.switchPerspective(require('./home/homeView'));
+    this.switchPerspective(this.getHomeView());
+  },
+
+  getHomeView: function() {
+    return require('./home/homeView');
   },
 
   /**

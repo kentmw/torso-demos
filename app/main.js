@@ -9,6 +9,8 @@ $(window).ready(function () {
   /**
    * The application router object
    */
-  require('./router').start();
+  var router = require('./router');
+  router.start();
+  window.app = router;
 });
 
