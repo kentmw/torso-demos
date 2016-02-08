@@ -76,9 +76,21 @@ module.exports = new (Torso.View.extend({
   popup: function() {
     if (this.get('popup-open')) {
       this.popupChildView.close();
-      this.set('popup-open', false);
+      /*
+       OR
+       this.popupChildView.transitionOut(function() { });
+       this.set('popup-open', false);
+       */
     } else {
-      this.transitionInView(this.$('[inject="popup"]'), this.popupChildView);
+      this.transitionSiteToNewView('popup', this.popupChildView);
+      /*
+       OR
+       this.injectView('popup', this.popupChildView, {
+         useTransition: true
+       });
+       OR
+       this.transitionInView(this.$('[inject="popup"]'), this.popupChildView);
+       */
       this.set('popup-open', true);
     }
   },

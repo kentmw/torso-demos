@@ -1,7 +1,7 @@
 $transition-speed: 0.5s;
 $transition-right-distance: 100%; // change to greater than 100 if you want space between the pages
 $transition-left-distance: -100%;
-$transition-top-distance: -100%;
+$transition-top-distance: -150%;
 
 .child-view {
   &:before {
