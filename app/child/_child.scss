@@ -22,22 +22,22 @@ $transition-left-distance: -100%;
   vertical-align: middle;
 }
 
-.leave-left {
+.cssanimations .leave-left {
   animation-duration: $transition-speed;
   animation-name: leaveLeft;
 }
 
-.leave-right {
+.cssanimations .leave-right {
   animation-duration: $transition-speed;
   animation-name: leaveRight;
 }
 
-.in-from-right {
+.cssanimations .in-from-right {
   animation-duration: $transition-speed;
   animation-name: comeInFromRight;
 }
 
-.in-from-left {
+.cssanimations .in-from-left {
   animation-duration: $transition-speed;
   animation-name: comeInFromLeft;
 }
