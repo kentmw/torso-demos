@@ -34,15 +34,18 @@ module.exports = new (Torso.View.extend({
       this.transitionPromise.done(function() {
         view.render();
       })
-    } else {
-      Torso.View.prototype.render.call(this);
-      this.transitionPromise = this.injectView('current', this.myChildViews[this.get('current')], {
-        transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards',
-        useTransition: true
-      });
-      if (this.get('popup-open')) {
-        this.injectView('popup', this.popupChildView);
-      }
+      return;
+    }
+    Torso.View.prototype.render.call(this);
+  },
+
+  attachTrackedViews: function() {
+    this.transitionPromise = this.injectView('current', this.myChildViews[this.get('current')], {
+      transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards',
+      useTransition: true
+    });
+    if (this.get('popup-open')) {
+      this.injectView('popup', this.popupChildView);
     }
   },
 
@@ -67,22 +70,31 @@ module.exports = new (Torso.View.extend({
       this.transitionPromise.done(function() {
         view.move(forward);
       })
-    } else if ((forward && current < (_.size(this.myChildViews) - 1)) || (!forward && current > 0)) {
+      return;
+    }
+    if ((forward && current < (_.size(this.myChildViews) - 1)) || (!forward && current > 0)) {
       this.set('previous', current);
       this.set('current', current + (forward ? 1 : -1));
     }
   },
 
   popup: function() {
+    view = this;
+    if (this.popupPromise && this.popupPromise.state() != 'resolved') {
+      this.popupPromise.done(function() {
+        view.popup();
+      });
+      return;
+    }
     if (this.get('popup-open')) {
-      this.popupChildView.close();
+      this.popupPromise = this.popupChildView.close();
       /*
        OR
        this.popupChildView.transitionOut(function() { });
        this.set('popup-open', false);
        */
     } else {
-      this.transitionSiteToNewView('popup', this.popupChildView);
+      this.popupPromise = this.transitionSiteToNewView('popup', this.popupChildView);
       /*
        OR
        this.injectView('popup', this.popupChildView, {
