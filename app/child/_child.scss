@@ -1,6 +1,7 @@
 $transition-speed: 0.5s;
 $transition-right-distance: 100%; // change to greater than 100 if you want space between the pages
 $transition-left-distance: -100%;
+$transition-top-distance: -100%;
 
 .child-view {
   &:before {
@@ -42,9 +43,14 @@ $transition-left-distance: -100%;
   animation-name: comeInFromLeft;
 }
 
-.in-from-top {
+.cssanimations .in-from-top {
   animation-duration: $transition-speed;
   animation-name: comeInFromTop;
+}
+
+.cssanimations .leave-top {
+  animation-duration: $transition-speed;
+  animation-name: leaveTop;
 }
 
 .red {
@@ -67,6 +73,10 @@ $transition-left-distance: -100%;
   background-color: #AD7B20;
 }
 
+.black {
+  background-color: #555;
+}
+
 @keyframes comeInFromRight {
   0% {
     transform: translate($transition-right-distance);
@@ -87,7 +97,7 @@ $transition-left-distance: -100%;
 
 @keyframes comeInFromTop {
   0% {
-    transform: translate(0%, -100%);
+    transform: translate(0%, $transition-top-distance);
   }
   100% {
     transform: translate(0%, 0%);
@@ -109,5 +119,14 @@ $transition-left-distance: -100%;
   }
   100% {
     transform: translate($transition-right-distance);
+  }
+}
+
+@keyframes leaveTop {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  100% {
+    transform: translate(0%, $transition-top-distance);
   }
 }

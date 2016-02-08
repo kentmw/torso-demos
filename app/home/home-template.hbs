@@ -3,4 +3,6 @@
   <button class="back" {{#ifCond view.current '!==' 0}}{{else}}disabled{{/ifCond}}>< Back</button>
   <button class="next"  {{#ifCond view.current '!==' maxIndexOfChildViews}}{{else}}disabled{{/ifCond}}>Next ></button>
   <button class="render">Render</button>
+  <button class="popup">Popup</button>
 </div>
+<div inject="popup"></div>

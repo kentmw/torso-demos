@@ -9,7 +9,8 @@ module.exports = new (Torso.View.extend({
   events: {
     'click .next': 'next',
     'click .back': 'back',
-    'click .render': 'render'
+    'click .render': 'render',
+    'click .popup': 'popup'
   },
 
   initialize: function() {
@@ -20,10 +21,11 @@ module.exports = new (Torso.View.extend({
       new ChildView({color: 'purple'}),
       new ChildView({color: 'orange'})
     ];
+    this.popupChildView = new ChildView({color: 'black'});
     this.set('current', 0);
     this.set('previous', -1);
     this.listenTo(this.viewState, 'change:current', this.render);
-    this.listenTo()
+    this.listenTo(this.popupChildView, 'closed', this.popupClosed);
   },
 
   render: function() {
@@ -38,6 +40,9 @@ module.exports = new (Torso.View.extend({
         transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards',
         useTransition: true
       });
+      if (this.get('popup-open')) {
+        this.injectView('popup', this.popupChildView);
+      }
     }
   },
 
@@ -66,6 +71,20 @@ module.exports = new (Torso.View.extend({
       this.set('previous', current);
       this.set('current', current + (forward ? 1 : -1));
     }
+  },
+
+  popup: function() {
+    if (this.get('popup-open')) {
+      this.popupChildView.close();
+      this.set('popup-open', false);
+    } else {
+      this.transitionInView(this.$('[inject="popup"]'), this.popupChildView);
+      this.set('popup-open', true);
+    }
+  },
+
+  popupClosed: function() {
+    this.set('popup-open', false);
   }
 
 

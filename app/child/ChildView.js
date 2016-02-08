@@ -9,6 +9,10 @@ module.exports = Torso.View.extend({
     return 'child-view ' + this.get('color') + ' ' + this.get('transitionClass');
   },
 
+  events: {
+    'click .close': 'close'
+  },
+
   initialize: function(args) {
     this.set('color', args.color);
     this.set('id', ++counter);
@@ -24,11 +28,15 @@ module.exports = Torso.View.extend({
     this.$el.attr('class', _.result(this, 'className'));
   },
 
-  transitionOut: function(detach, done, options) {
+  transitionOut: function(done, options) {
     var view = this;
-    this.set('transitionClass', options.transitionType == 'forward' ? 'leave-left' : 'leave-right');
+    if (options.modal) {
+      this.set('transitionClass', 'leave-top');
+    } else {
+      this.set('transitionClass', options.transitionType == 'forward' ? 'leave-left' : 'leave-right');
+    }
     setTimeout(function() {
-      detach();
+      view.detach();
       done();
     }, 500);
   },
@@ -36,7 +44,9 @@ module.exports = Torso.View.extend({
   transitionIn: function(attach, done, options) {
     var view = this;
     var transitionClass;
-    if (options.previousView) {
+    if (options.modal) {
+      transitionClass = 'in-from-top';
+    } else if (options.previousView) {
       transitionClass = (options.transitionType == 'forward') ? 'in-from-right' : 'in-from-left';
     } else {
       transitionClass = 'in-from-top';
@@ -48,4 +58,11 @@ module.exports = Torso.View.extend({
       done();
     }, 500);
   },
+
+  close: function() {
+    var deferred = $.Deferred();
+    this.transitionOut(deferred.resolve, {modal: true});
+    this.trigger('closed');
+    return deferred.promise();
+  }
 });
