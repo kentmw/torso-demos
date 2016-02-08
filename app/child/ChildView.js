@@ -35,12 +35,7 @@ module.exports = Torso.View.extend({
 
   transitionIn: function(attach, done, options) {
     var view = this;
-    var transitionClass;
-    if (options.previousView) {
-      transitionClass = (options.transitionType == 'forward') ? 'in-from-right' : 'in-from-left';
-    } else {
-      transitionClass = 'in-from-top';
-    }
+    var transitionClass = (options.transitionType == 'forward') ? 'in-from-right' : 'in-from-left';
     this.set('transitionClass', transitionClass);
     attach();
     setTimeout(function() {
