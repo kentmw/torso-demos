@@ -24,24 +24,28 @@ module.exports = Torso.View.extend({
     this.$el.attr('class', _.result(this, 'className'));
   },
 
-  transitionOut: function(detach, options) {
+  transitionOut: function(detach, done, options) {
     var view = this;
     this.set('transitionClass', options.transitionType == 'forward' ? 'leave-left' : 'leave-right');
     setTimeout(function() {
       detach();
-      view.set('transitionClass', '');
+      done();
     }, 500);
   },
 
-  transitionIn: function(attach, options) {
+  transitionIn: function(attach, done, options) {
     var view = this;
-    var deferred = $.Deferred();
-    this.set('transitionClass', options.transitionType == 'forward' ? 'in-from-right' : 'in-from-left');
+    var transitionClass;
+    if (options.previousView) {
+      transitionClass = (options.transitionType == 'forward') ? 'in-from-right' : 'in-from-left';
+    } else {
+      transitionClass = 'in-from-top';
+    }
+    this.set('transitionClass', transitionClass);
     attach();
     setTimeout(function() {
       view.set('transitionClass', '');
-      deferred.resolve();
+      done();
     }, 500);
-    return deferred.promise();
   },
 });

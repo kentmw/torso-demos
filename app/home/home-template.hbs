@@ -1,9 +1,6 @@
 <div inject="current"></div>
 <div class="control">
-
   <button class="back" {{#ifCond view.current '!==' 0}}{{else}}disabled{{/ifCond}}>< Back</button>
-
-
   <button class="next"  {{#ifCond view.current '!==' maxIndexOfChildViews}}{{else}}disabled{{/ifCond}}>Next ></button>
-
+  <button class="render">Render</button>
 </div>

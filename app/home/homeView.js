@@ -8,7 +8,8 @@ module.exports = new (Torso.View.extend({
 
   events: {
     'click .next': 'next',
-    'click .back': 'back'
+    'click .back': 'back',
+    'click .render': 'render'
   },
 
   initialize: function() {
@@ -20,19 +21,22 @@ module.exports = new (Torso.View.extend({
       new ChildView({color: 'orange'})
     ];
     this.set('current', 0);
+    this.set('previous', -1);
     this.listenTo(this.viewState, 'change:current', this.render);
     this.listenTo()
   },
 
   render: function() {
-    Torso.View.prototype.render.call(this);
-    var newChildView = this.myChildViews[this.get('current')];
-    if (this.get('previous') == undefined) {
-      this.injectView('current', newChildView);
+    var view = this;
+    if (this.transitionPromise && this.transitionPromise.state() != 'resolved') {
+      this.transitionPromise.done(function() {
+        view.render();
+      })
     } else {
-      var previousChildView = this.myChildViews[this.get('previous')];
-      this.transitionPromise = this.transitionView('current', newChildView, previousChildView, {
-        transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards'
+      Torso.View.prototype.render.call(this);
+      this.transitionPromise = this.injectView('current', this.myChildViews[this.get('current')], {
+        transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards',
+        useTransition: true
       });
     }
   },

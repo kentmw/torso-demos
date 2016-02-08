@@ -42,6 +42,11 @@ $transition-left-distance: -100%;
   animation-name: comeInFromLeft;
 }
 
+.in-from-top {
+  animation-duration: $transition-speed;
+  animation-name: comeInFromTop;
+}
+
 .red {
   background-color: #B13535;
 }
@@ -77,6 +82,15 @@ $transition-left-distance: -100%;
   }
   100% {
     transform: translate(0%);
+  }
+}
+
+@keyframes comeInFromTop {
+  0% {
+    transform: translate(0%, -100%);
+  }
+  100% {
+    transform: translate(0%, 0%);
   }
 }
 
