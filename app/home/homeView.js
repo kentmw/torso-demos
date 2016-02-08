@@ -21,7 +21,7 @@ module.exports = new (Torso.View.extend({
       new ChildView({color: 'purple'}),
       new ChildView({color: 'orange'})
     ];
-    this.popupChildView = new ChildView({color: 'black'});
+    this.popupChildView = new ChildView({color: 'black', modal: true});
     this.set('current', 0);
     this.set('previous', -1);
     this.listenTo(this.viewState, 'change:current', this.render);

@@ -75,6 +75,10 @@ $transition-top-distance: -100%;
 
 .black {
   background-color: #555;
+  width: 80vw;
+  height: 60vh;
+  top: 10vh;
+  left: 10vw;
 }
 
 @keyframes comeInFromRight {
