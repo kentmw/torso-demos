@@ -37,5 +37,8 @@
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "browsernizr": "^2.0.1"
   }
 }

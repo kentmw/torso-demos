@@ -1,6 +1,10 @@
 var $ = require('jquery');
 require('./handlebar-helpers')(require('hbsfy/runtime'));
 
+require('browsernizr/test/css/animations');
+
+require('browsernizr');
+
 // Expose some globals
 window.$ = $;
 window.jQuery = $;

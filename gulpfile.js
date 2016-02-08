@@ -13,6 +13,7 @@ var browserifyBundler, copyResources, buildStyles, buildApp, packageApp,
     fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8')),
     paths = {
+      project: __dirname,
       app: 'app',
       dist: 'dist'
     };
