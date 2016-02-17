@@ -26,31 +26,37 @@ $transition-top-distance: -150%;
 .cssanimations .leave-left {
   animation-duration: $transition-speed;
   animation-name: leaveLeft;
+  animation-fill-mode: forwards;
 }
 
 .cssanimations .leave-right {
   animation-duration: $transition-speed;
   animation-name: leaveRight;
+  animation-fill-mode: forwards;
 }
 
 .cssanimations .in-from-right {
   animation-duration: $transition-speed;
   animation-name: comeInFromRight;
+  animation-fill-mode: forwards;
 }
 
 .cssanimations .in-from-left {
   animation-duration: $transition-speed;
   animation-name: comeInFromLeft;
+  animation-fill-mode: forwards;
 }
 
 .cssanimations .in-from-top {
   animation-duration: $transition-speed;
   animation-name: comeInFromTop;
+  animation-fill-mode: forwards;
 }
 
 .cssanimations .leave-top {
   animation-duration: $transition-speed;
   animation-name: leaveTop;
+  animation-fill-mode: forwards;
 }
 
 .red {

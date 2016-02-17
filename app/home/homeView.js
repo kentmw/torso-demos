@@ -30,23 +30,23 @@ module.exports = new (Torso.View.extend({
 
   render: function() {
     var view = this;
-    if (this.transitionPromise && this.transitionPromise.state() != 'resolved') {
-      this.transitionPromise.done(function() {
-        view.render();
+    if (this.renderPromise && this.renderPromise.state() != 'resolved') {
+      this.renderPromise.done(function() {
+        view.renderPromise = view.render();
       })
       return;
     }
-    Torso.View.prototype.render.call(this);
+    this.renderPromise = Torso.View.prototype.render.call(this);
   },
 
   attachTrackedViews: function() {
-    this.transitionPromise = this.injectView('current', this.myChildViews[this.get('current')], {
+    if (this.get('popup-open')) {
+      this.attachView('popup', this.popupChildView);
+    }
+    return this.attachView('current', this.myChildViews[this.get('current')], {
       transitionType: this.get('current') > this.get('previous') ? 'forward' : 'backwards',
       useTransition: true
     });
-    if (this.get('popup-open')) {
-      this.injectView('popup', this.popupChildView);
-    }
   },
 
   prepare: function() {
@@ -66,8 +66,8 @@ module.exports = new (Torso.View.extend({
   move: function(forward) {
     var view = this;
     var current = this.get('current');
-    if (this.transitionPromise && this.transitionPromise.state() != 'resolved') {
-      this.transitionPromise.done(function() {
+    if (this.renderPromise && this.renderPromise.state() != 'resolved') {
+      this.renderPromise.done(function() {
         view.move(forward);
       })
       return;
@@ -94,15 +94,9 @@ module.exports = new (Torso.View.extend({
        this.set('popup-open', false);
        */
     } else {
-      this.popupPromise = this.transitionSiteToNewView('popup', this.popupChildView);
-      /*
-       OR
-       this.injectView('popup', this.popupChildView, {
+       this.attachView('popup', this.popupChildView, {
          useTransition: true
        });
-       OR
-       this.transitionInView(this.$('[inject="popup"]'), this.popupChildView);
-       */
       this.set('popup-open', true);
     }
   },
