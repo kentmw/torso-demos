@@ -1,0 +1,142 @@
+$transition-speed: 0.5s;
+$transition-right-distance: 100%; // change to greater than 100 if you want space between the pages
+$transition-left-distance: -100%;
+$transition-top-distance: -150%;
+
+.child-view {
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 85vh;
+  margin: auto;
+  color: #eee;
+  font-size: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cssanimations .leave-left {
+  animation-duration: $transition-speed;
+  animation-name: leaveLeft;
+  animation-fill-mode: forwards;
+}
+
+.cssanimations .leave-right {
+  animation-duration: $transition-speed;
+  animation-name: leaveRight;
+  animation-fill-mode: forwards;
+}
+
+.cssanimations .in-from-right {
+  animation-duration: $transition-speed;
+  animation-name: comeInFromRight;
+  animation-fill-mode: forwards;
+}
+
+.cssanimations .in-from-left {
+  animation-duration: $transition-speed;
+  animation-name: comeInFromLeft;
+  animation-fill-mode: forwards;
+}
+
+.cssanimations .in-from-top {
+  animation-duration: $transition-speed;
+  animation-name: comeInFromTop;
+  animation-fill-mode: forwards;
+}
+
+.cssanimations .leave-top {
+  animation-duration: $transition-speed;
+  animation-name: leaveTop;
+  animation-fill-mode: forwards;
+}
+
+.red {
+  background-color: #B13535;
+}
+
+.blue {
+  background-color: #2C2CBF;
+}
+
+.green {
+  background-color: #378237;
+}
+
+.purple {
+  background-color: #791579;
+}
+
+.orange {
+  background-color: #AD7B20;
+}
+
+.black {
+  background-color: #555;
+  width: 80vw;
+  height: 60vh;
+  top: 10vh;
+  left: 10vw;
+}
+
+@keyframes comeInFromRight {
+  0% {
+    transform: translate($transition-right-distance);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes comeInFromLeft {
+  0% {
+    transform: translate($transition-left-distance);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes comeInFromTop {
+  0% {
+    transform: translate(0%, $transition-top-distance);
+  }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes leaveLeft {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate($transition-left-distance);
+  }
+}
+
+@keyframes leaveRight {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate($transition-right-distance);
+  }
+}
+
+@keyframes leaveTop {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  100% {
+    transform: translate(0%, $transition-top-distance);
+  }
+}

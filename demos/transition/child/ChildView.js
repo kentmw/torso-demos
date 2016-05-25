@@ -20,8 +20,7 @@ module.exports = Torso.View.extend({
     this.listenTo(this.viewState, 'change:transitionClass change:color', this.refreshClass);
   },
 
-  render: function() {
-    Torso.View.prototype.render.call(this);
+  postrender: function() {
     this.refreshClass();
   },
 

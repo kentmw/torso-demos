@@ -1,0 +1,39 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  clear: fix;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.control {
+  margin-top: 10px;
+  position: absolute;
+  top: 95vh;
+  left: 45vw;
+  button {
+   display: inline-block;
+  }
+}
+
+.home {
+  width: 100%;
+  height: 100%;
+}
+
+.back {
+  // left: 0vw;
+}
+
+.next {
+  // left: 5vw;
+}
+
+.render {
+  //left: 10vw;
+}

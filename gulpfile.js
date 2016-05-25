@@ -10,11 +10,12 @@ var browserifyBundler, copyResources, buildStyles, buildApp, packageApp,
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
     environment = $.util.env.type || 'development',
+    argv = require('yargs').argv;
     fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8')),
     paths = {
       project: __dirname,
-      app: 'app',
+      app: 'demos/' + (argv.demo ? argv.demo : 'transition'),
       dist: 'dist'
     };
 

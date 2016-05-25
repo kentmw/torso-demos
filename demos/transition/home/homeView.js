@@ -36,7 +36,7 @@ module.exports = new (Torso.View.extend({
       })
       return;
     }
-    this.renderPromise = Torso.View.prototype.render.call(this);
+    return this.renderPromise = Torso.View.prototype.render.call(this);
   },
 
   attachTrackedViews: function() {
